@@ -1,11 +1,20 @@
-name : Deploy Dist
-on: [push,workflow_dispatch]
+
+
+
+name: Ci
+on: push
 jobs:
-    test:
-        runs-on: Ubuntu-latest
+    node-js-ci:
+        runs-on: ubuntu-latest
         steps:
-            - name: Get code
+            - name: "copy code to server"
               uses: actions/checkout@v4
               
-
-
+            - name: "use node version"
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18
+            - name: "install dependency"
+              run: npm install
+            - name: "run the file"
+              run: npm run build
